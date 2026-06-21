@@ -1,16 +1,17 @@
 import Tile from './Tile'
 
-function Grid({ gridSize, pattern, selected, revealed, onTileClick, theme, disabled }) {
+function Grid({ gridSize, pattern, selected, revealed, phase, onTileClick, theme, disabled }) {
   const total = gridSize * gridSize
 
   function getTileState(index) {
-    const isActive = pattern.includes(index) && !revealed
+    const isActive = pattern.includes(index) && phase === 'study'
     const isSelected = selected.includes(index)
-    const isCorrect = revealed && pattern.includes(index)
-    const isWrong = revealed && selected.includes(index) && !pattern.includes(index)
+    const isCorrect = revealed && pattern.includes(index) && selected.includes(index)
+    const isMissed = revealed && pattern.includes(index) && !selected.includes(index)
+    const isWrong = revealed && !pattern.includes(index) && selected.includes(index)
 
-    return { isActive, isSelected, isCorrect, isWrong }
-  }
+  return { isActive, isSelected, isCorrect, isMissed, isWrong }
+}
 
   return (
     <div

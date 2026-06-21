@@ -1,7 +1,8 @@
-function Tile({ index, isActive, isSelected, isCorrect, isWrong, onClick, theme, disabled }) {
+function Tile({ index, isActive, isSelected, isCorrect,isMissed, isWrong, onClick, theme, disabled }) {
   function getColor() {
     if (isCorrect) return theme.tileCorrect
     if (isWrong) return theme.tileWrong
+    if (isMissed) return theme.tileMissed
     if (isActive) return theme.tileActive
     if (isSelected) return theme.accent
     return theme.tile
