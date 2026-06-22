@@ -18,6 +18,7 @@ function App() {
   const [timer, setTimer] = useState(0)
   const [stars] = useState(() => generateStars(120))
   const timerRef = useRef(null)
+  const clickSound = new Audio('/PortfolioAs3/sounds/click/click2.mp3')
 
   const theme = THEMES[themeName]
   const config = getLevelConfig(level)
@@ -58,13 +59,15 @@ function App() {
   }
 
   function handleTileClick(index) {
-    if (phase !== 'recall') return
-    setSelected(prev =>
-      prev.includes(index)
-        ? prev.filter(i => i !== index)
-        : [...prev, index]
-    )
-  }
+  if (phase !== 'recall') return
+  clickSound.currentTime = 0
+  clickSound.play().catch(e => console.error(e))
+  setSelected(prev =>
+    prev.includes(index)
+      ? prev.filter(i => i !== index)
+      : [...prev, index]
+  )
+}
 
   function submitGuess() {
     if (phase !== 'recall') return
